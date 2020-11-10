@@ -23,6 +23,7 @@
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.14.0",
     "@symfony/webpack-encore": "^0.31.0",
+    "copy-webpack-plugin": "^6.3.0",
     "core-js": "^3.7.0",
     "eslint": "^7.13.0",
     "eslint-config-standard": "^14.1.1",
@@ -47,6 +48,8 @@
     "standard": "^16.0.1",
     "stylelint": "^13.7.2",
     "stylelint-config-twbs-bootstrap": "^2.1.0",
+    "uglify-es": "^3.3.9",
+    "webpack-concat-files-plugin": "^0.4.1",
     "webpack-notifier": "^1.8.0"
   },
   "dependencies": {

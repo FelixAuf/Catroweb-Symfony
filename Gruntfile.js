@@ -21,15 +21,15 @@ module.exports = function (grunt) {
   // define project configuration
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    copy: COPY_CONFIG,
-    concat: CONCAT_CONFIG,
-    uglify: UGLIFY_CONFIG,
+    //copy: COPY_CONFIG,
+    //concat: CONCAT_CONFIG,
+    //uglify: UGLIFY_CONFIG,
     sass: SASS_CONFIG,
     watch: WATCH_CONFIG,
     purgecss: PURGECSS_CONFIG
   })
   // define default tasks to run on `grunt`
-  grunt.registerTask('default', ['copy', 'concat', 'sass', 'uglify', 'purgecss'])
+  grunt.registerTask('default', ['sass', 'purgecss'])
 }
 
 // -------------------------------------------------------------------------------------------------
