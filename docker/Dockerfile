@@ -7,7 +7,7 @@ RUN composer install --no-scripts --prefer-dist
 FROM node AS node-build
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm install && npm install @symfony/webpack-encore
+RUN npm install && npm install -g @symfony/webpack-encore
 
 # Run on:
 FROM debian:buster

@@ -10,7 +10,8 @@
     "dev-server": "encore dev-server",
     "dev": "encore dev",
     "watch": "encore dev --watch",
-    "build": "encore production --progress"
+    "build": "encore production --progress",
+    "encore": "encore"
   },
   "repository": {
     "type": "git",
@@ -43,7 +44,6 @@
     "stylelint": "^13.7.2",
     "stylelint-config-twbs-bootstrap": "^2.1.0",
     "uglify-es": "^3.3.9",
-    "webpack": "^4.44.2",
     "webpack-concat-files-plugin": "^0.4.1",
     "webpack-notifier": "^1.8.0"
   },
