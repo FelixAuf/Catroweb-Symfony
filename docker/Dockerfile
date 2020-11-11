@@ -101,6 +101,6 @@ COPY --from=composer-build /app/bin bin
 RUN sh docker/app/prepare-test-env.sh
 
 # Run webpack encore to (re-)compile public css/js files
-RUN npm run encore dev
+RUN npm run dev
 
 EXPOSE 80

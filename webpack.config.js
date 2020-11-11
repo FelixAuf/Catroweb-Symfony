@@ -3,17 +3,10 @@ const CopyPlugin = require('copy-webpack-plugin');
 const WebpackConcatPlugin = require('webpack-concat-files-plugin');
 const UglifyJS = require('uglify-es');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const PurgecssPlugin = require('purgecss-webpack-plugin')
 const path = require('path');
-const glob = require('glob');
 
 const ASSETS_DIRECTORY = 'assets'
 const PUBLIC_DIRECTORY = '../public'
-const TEMPLATE_DIRECTORY = 'templates'
-
-const PATHS = {
-  src: path.join(__dirname, 'src')
-}
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
@@ -213,9 +206,6 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({
       filename: 'css/[name].css',
-    }),
-    new PurgecssPlugin({
-      paths: glob.sync('css/**/*', { nodir: true }),
     }),
   ],
   module: {
