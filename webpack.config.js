@@ -1,11 +1,19 @@
 var Encore = require('@symfony/webpack-encore');
 const CopyPlugin = require('copy-webpack-plugin');
 const WebpackConcatPlugin = require('webpack-concat-files-plugin');
-const UglifyJS = require("uglify-es");
+const UglifyJS = require('uglify-es');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const PurgecssPlugin = require('purgecss-webpack-plugin')
+const path = require('path');
+const glob = require('glob');
 
 const ASSETS_DIRECTORY = 'assets'
 const PUBLIC_DIRECTORY = '../public'
 const TEMPLATE_DIRECTORY = 'templates'
+
+const PATHS = {
+  src: path.join(__dirname, 'src')
+}
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
@@ -73,6 +81,14 @@ Encore
   .addEntry('ProgramDescription', './assets/js/custom/ProgramDescription.js')
   .addEntry('remixgraph.builder', './assets/js/custom/remixgraph.builder.js')
 */
+  .addEntry('arduino', './assets/css/themes/arduino.scss')
+  .addEntry('create@school', './assets/css/themes/create@school.scss')
+  .addEntry('embroidery', './assets/css/themes/embroidery.scss')
+  .addEntry('luna', './assets/css/themes/luna.scss')
+  .addEntry('phirocode', './assets/css/themes/phirocode.scss')
+  .addEntry('pocketalice', './assets/css/themes/pocketalice.scss')
+  .addEntry('pocketcode', './assets/css/themes/pocketcode.scss')
+  .addEntry('pocketgalaxy', './assets/css/themes/pocketgalaxy.scss')
 
 
 // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
@@ -120,22 +136,21 @@ Encore
 ;
 
 module.exports = {
-  entry: './assets/js/base/Main.js',
+  entry: {
+    main: './assets/css/custom/main.scss',
+    arduino: './assets/css/themes/arduino.scss',
+    createatschool: './assets/css/themes/create@school.scss',
+    embroidery: './assets/css/themes/embroidery.scss',
+    luna: './assets/css/themes/luna.scss',
+    phirocode: './assets/css/themes/phirocode.scss',
+    pocketalice: './assets/css/themes/pocketalice.scss',
+    pocketcode: './assets/css/themes/pocketcode.scss',
+    pocketgalaxy: './assets/css/themes/pocketgalaxy.scss'
+  },
   mode: 'development',
-  module: {
-    rules: [
-      {
-        test: /\.scss$/i,
-        use: [
-          // Creates `style` nodes from JS strings
-          'style-loader',
-          // Translates CSS into CommonJS
-          'css-loader',
-          // Compiles Sass to CSS
-          'sass-loader',
-        ],
-      },
-    ]
+  output: {
+    path: path.resolve(__dirname, 'public'),
+    filename: '[name].js'
   },
   plugins: [
     new WebpackConcatPlugin({
@@ -194,8 +209,28 @@ module.exports = {
         { from: 'node_modules/jquery-contextmenu/dist/jquery.ui.position.min.js', to: PUBLIC_DIRECTORY + '/js/modules/jquery.ui.position.min.js' },
         { from: 'node_modules/animatedmodal/animatedModal.min.js', to: PUBLIC_DIRECTORY + '/js/modules/animatedModal.min.js' },
         { from: 'node_modules/animate.css/animate.min.css', to: PUBLIC_DIRECTORY + '/css/modules/animate.min.css' },
-
       ]
     }),
+    new MiniCssExtractPlugin({
+      filename: 'css/[name].css',
+    }),
+    new PurgecssPlugin({
+      paths: glob.sync('css/**/*', { nodir: true }),
+    }),
   ],
+  module: {
+    rules: [
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: { url: false }
+          },
+          'sass-loader',
+        ],
+      },
+    ],
+  },
 }
