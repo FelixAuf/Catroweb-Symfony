@@ -265,7 +265,7 @@ function loadThemesFromSymfonyParameters () {
 
   // load the yaml file
   try {
-    const liipConfig = yaml.safeLoad(
+    const liipConfig = yaml.load(
       fs.readFileSync('config/packages/liip_theme.yaml', 'utf8')
     )
     const themes = liipConfig.parameters.themes
